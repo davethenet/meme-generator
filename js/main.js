@@ -30,3 +30,8 @@ function onDownloadImg(elLink) {
 function onChangeTxtColor(color) {
     setColor(color.value)
 }
+
+function onFontSize(sign){
+    setFontSize(sign)
+}
+

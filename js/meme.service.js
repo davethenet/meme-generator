@@ -72,3 +72,8 @@ function setColor(color){
     gMeme.lines[0].color = color
     renderMeme(gMeme)
 }
+
+function setFontSize(sign){
+   sign === '+' ? gMeme.lines[0].size++ : gMeme.lines[0].size--
+    renderMeme(gMeme)
+}
