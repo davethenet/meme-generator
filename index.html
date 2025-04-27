@@ -24,8 +24,11 @@
 
 <div>
     <label for="text">Text:</label>
-
 <input type="text" class="textInput" name="text" onkeyup="setLineTxt()" />
+
+<label for="txtcolor">Text color:</label>
+<input type="color" id="txtcolor" name="txtcolor" value="#000000" onchange="onChangeTxtColor(this)">
+<br>
 <a href="#" class="btn" onclick="onDownloadImg(this)" download="my-img.jpg">Download</a>
 </div>
 

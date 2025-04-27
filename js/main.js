@@ -26,3 +26,7 @@ function onDownloadImg(elLink) {
     const imgContent = gElCanvas.toDataURL('image/jpeg')
     elLink.href = imgContent
 }
+
+function onChangeTxtColor(color) {
+    setColor(color.value)
+}

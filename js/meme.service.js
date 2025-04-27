@@ -67,3 +67,8 @@ function drawText(text, x, y, meme) {
     gCtx.strokeText(text, x, y)
   }
 
+function setColor(color){
+    console.log(color)
+    gMeme.lines[0].color = color
+    renderMeme(gMeme)
+}
