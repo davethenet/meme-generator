@@ -11,6 +11,7 @@ function onInit(){
     var meme = getMeme()
     console.log(meme)
     renderMeme(meme)
+    renderGallery()
 }
 
 function onClearCanvas(){
