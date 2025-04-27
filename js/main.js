@@ -23,8 +23,9 @@ function renderMeme(meme){
     drawImg(meme)
     setTimeout(() => {
         renderLines(meme)
+        drawFrame()
       }, "70");
-      drawFrame()
+     
 }
 
 function renderLines(meme){

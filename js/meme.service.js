@@ -78,7 +78,7 @@ function setColor(color){
 }
 
 function setFontSize(sign){
-   sign === '+' ? gMeme.lines[0].size++ : gMeme.lines[gMeme.selectedLineId].size--
+   sign === '+' ? gMeme.lines[gMeme.selectedLineId].size++ : gMeme.lines[gMeme.selectedLineId].size--
     renderMeme(gMeme)
 }
 
@@ -96,8 +96,10 @@ function addLine(){
 function switchLine(){
     if (gMeme.selectedLineId < gMeme.lines.length-1){
         gMeme.selectedLineId ++
+        renderMeme(gMeme)
     }
     else gMeme.selectedLineId = 0
+    renderMeme(gMeme)
 }
 
 function drawFrame(){
@@ -110,12 +112,14 @@ function drawFrame(){
   const textHeight = metrics.actualBoundingBoxAscent + metrics.actualBoundingBoxDescent;
 
   // 4) Draw the frame around it
+  gCtx.strokeStyle = 'red';
   gCtx.strokeRect(
-    gElCanvas.width,
-    gElCanvas.height - metrics.actualBoundingBoxAscent,
-    textWidth,
+    gMeme.lines[gMeme.selectedLineId].posX / 2,
+    gMeme.lines[gMeme.selectedLineId].posY - metrics.actualBoundingBoxAscent,
+    textWidth+10,
     textHeight
   );
+  
 }
 
 function setPos(i,x,y){
