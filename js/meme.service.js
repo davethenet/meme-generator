@@ -14,10 +14,14 @@ var gMeme = {
         {
             txt: 'I sometimes eat Falafel',
             size: 40,
-            color: 'blue'
+            color: 'blue',
+            posX: 0,
+            posY: 0
         }
     ]
 }
+
+
 
 var gKeywordsSearchCountMap = {'funny': 12, 'cat': 16, 'baby': 2}
 
@@ -28,7 +32,7 @@ function getMeme(){
 
 function setLineTxt(){
     var elTxt = document.querySelector('.textInput')
-    gMeme.lines[0].txt = elTxt.value
+    gMeme.lines[gMeme.selectedLineId].txt = elTxt.value
     renderMeme(gMeme)
 }
 
@@ -49,17 +53,17 @@ function drawImg(meme) {
     img.src = `img/${meme.selectedImgId}.jpg`
     img.onload = () => {
         gCtx.drawImage(img, 0, 0, gElCanvas.width, gElCanvas.height)
-        drawText(meme.lines[0].txt, gElCanvas.width / 2, gElCanvas.height / 2, meme)
-
+        
+        // drawText(meme.lines[1].txt, gElCanvas.width / 4, gElCanvas.height / 2, meme)
     }
 }
 
 
 function drawText(text, x, y, meme) {
     gCtx.lineWidth = 2
-    gCtx.strokeStyle = meme.lines[0].color
-    gCtx.fillStyle = meme.lines[0].color
-    gCtx.font = meme.lines[0].size + 'px Ariel'
+    gCtx.strokeStyle = meme.lines[gMeme.selectedLineId].color
+    gCtx.fillStyle = meme.lines[gMeme.selectedLineId].color
+    gCtx.font = meme.lines[gMeme.selectedLineId].size + 'px Ariel'
     gCtx.textAlign = 'center'
     gCtx.textBaseline = 'middle'
   
@@ -69,11 +73,52 @@ function drawText(text, x, y, meme) {
 
 function setColor(color){
     console.log(color)
-    gMeme.lines[0].color = color
+    gMeme.lines[gMeme.selectedLineId].color = color
     renderMeme(gMeme)
 }
 
 function setFontSize(sign){
-   sign === '+' ? gMeme.lines[0].size++ : gMeme.lines[0].size--
+   sign === '+' ? gMeme.lines[0].size++ : gMeme.lines[gMeme.selectedLineId].size--
     renderMeme(gMeme)
+}
+
+function addLine(){
+    gMeme.lines.push ( {
+        txt: 'New Line',
+        size: 40,
+        color: 'blue'
+    })
+    renderMeme(gMeme)
+}
+
+
+
+function switchLine(){
+    if (gMeme.selectedLineId < gMeme.lines.length-1){
+        gMeme.selectedLineId ++
+    }
+    else gMeme.selectedLineId = 0
+}
+
+function drawFrame(){
+      // 3) Measure the text
+  const metrics = gCtx.measureText(gMeme.lines[gMeme.selectedLineId].txt);
+  console.log(metrics)
+  // width of the text
+  const textWidth = metrics.width;
+  // height using bounding-box metrics (supported in modern browsers)
+  const textHeight = metrics.actualBoundingBoxAscent + metrics.actualBoundingBoxDescent;
+
+  // 4) Draw the frame around it
+  gCtx.strokeRect(
+    gElCanvas.width,
+    gElCanvas.height - metrics.actualBoundingBoxAscent,
+    textWidth,
+    textHeight
+  );
+}
+
+function setPos(i,x,y){
+    gMeme.lines[i].posX = x
+    gMeme.lines[i].posY = y
 }
